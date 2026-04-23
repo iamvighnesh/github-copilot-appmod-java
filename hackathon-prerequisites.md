@@ -102,17 +102,46 @@ java -version
 
 ### 2.2 Apache Maven
 
-**Required Version:** 3.6.0 or higher
+**Required Version:** 3.9.0 or higher (recommended: 3.9.x)
 
 **Installation:**
 
-**Windows:**
+**Windows (Manual Installation - Recommended):**
+
+**Note:** Maven is not available on winget. Follow these steps for manual installation:
+
+1. **Download Maven:**
+   - Go to https://maven.apache.org/download.cgi
+   - Download the "Binary zip archive" (e.g., `apache-maven-3.9.9-bin.zip`)
+
+2. **Extract to a permanent location:**
+   ```powershell
+   # Create tools directory if it doesn't exist
+   New-Item -ItemType Directory -Path "$env:USERPROFILE\tools" -Force
+   
+   # Extract the downloaded zip to %USERPROFILE%\tools
+   # Example: Extract to C:\Users\YourName\tools\apache-maven-3.9.9
+   ```
+
+3. **Add Maven to PATH:**
+   ```powershell
+   # Add Maven bin directory to PATH (replace with your actual path)
+   $mavenPath = "$env:USERPROFILE\tools\apache-maven-3.9.9\bin"
+   [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$mavenPath", "User")
+   
+   # Restart your terminal or VS Code for changes to take effect
+   ```
+
+4. **Verify installation:**
+   ```powershell
+   # Open a NEW terminal window
+   mvn -version
+   # Should output: Apache Maven 3.9.x
+   ```
+
+**Windows (Alternative - Chocolatey):**
 
 ```powershell
-# Using winget
-winget install Apache.Maven
-
-# Or using Chocolatey
 choco install maven
 ```
 
@@ -133,7 +162,7 @@ sudo apt install maven
 
 ```bash
 mvn -version
-# Should output: Apache Maven 3.6.x or higher
+# Should output: Apache Maven 3.9.x or higher
 ```
 
 ---
@@ -189,6 +218,35 @@ git --version
 
 Install these extensions in VS Code **before the hackathon**:
 
+### Quick Installation (Recommended)
+
+Install all required extensions at once using their extension IDs:
+
+1. **Open VS Code terminal** (`` Ctrl+` ``)
+2. **Run these commands** one by one:
+
+```powershell
+# Install GitHub Copilot
+code --install-extension GitHub.copilot
+
+# Install GitHub Copilot Chat
+code --install-extension GitHub.copilot-chat
+
+# Install App Modernization for Java
+code --install-extension vscjava.migrate-java-to-azure
+
+# Install Extension Pack for Java
+code --install-extension vscjava.vscode-java-pack
+```
+
+3. **Restart VS Code** after installation
+
+---
+
+### Manual Installation (Alternative)
+
+If you prefer to install manually:
+
 ### 3.1 GitHub Copilot (Required)
 
 **Extension ID:** `GitHub.copilot`
@@ -207,7 +265,21 @@ Install these extensions in VS Code **before the hackathon**:
 
 ---
 
-### 3.2 GitHub Copilot App Modernization for Java (Required)
+### 3.2 GitHub Copilot Chat (Required)
+
+**Extension ID:** `GitHub.copilot-chat`
+
+**Installation:**
+
+1. Open VS Code Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`)
+2. Search for "GitHub Copilot Chat"
+3. Click **Install**
+
+**Note:** This enables the chat panel and inline chat features for Copilot
+
+---
+
+### 3.3 GitHub Copilot App Modernization for Java (Required)
 
 **Extension ID:** `vscjava.migrate-java-to-azure`
 
@@ -221,7 +293,7 @@ Install these extensions in VS Code **before the hackathon**:
 
 ---
 
-### 3.3 Extension Pack for Java (Highly Recommended)
+### 3.4 Extension Pack for Java (Highly Recommended)
 
 **Extension ID:** `vscjava.vscode-java-pack`
 
@@ -431,28 +503,7 @@ If you have access to multiple subscriptions, ensure the hackathon subscription 
 
    Confirm the "Name" matches your hackathon subscription.
 
-### 5.5 Sign In to Azure in VS Code
-
-1. **Install Azure Account Extension:**
-   - Press `Ctrl+Shift+X` to open Extensions
-   - Search for "Azure Account"
-   - Install "Azure Account" extension by Microsoft
-
-2. **Sign In:**
-   - Press `Ctrl+Shift+P` and type "Azure: Sign In"
-   - Authenticate with your organization credentials
-
-3. **Select Subscription in VS Code:**
-   - Press `Ctrl+Shift+P` and type "Azure: Select Subscriptions"
-   - Check the box next to your hackathon subscription
-   - Uncheck other subscriptions
-   - Click "OK"
-
-**Verification:**
-
-- Look for Azure icon in the Activity Bar (left side)
-- Click it to see your resources
-- Verify the correct subscription is shown at the top
+**Note:** You do NOT need to install the Azure Account extension in VS Code. The Azure CLI (`az login`) is sufficient for this hackathon. Azure deployment tasks will use the CLI credentials.
 
 ---
 
@@ -463,15 +514,16 @@ Complete this checklist **at least 1 day before** the hackathon:
 ### Software Installation
 
 - [ ] JDK 11+ installed and verified (`java -version`)
-- [ ] Maven 3.6+ installed and verified (`mvn -version`)
+- [ ] Maven 3.9+ installed and verified (`mvn -version`)
 - [ ] VS Code installed and launched successfully
 - [ ] Git installed and verified (`git --version`)
 
 ### VS Code Extensions
 
-- [ ] GitHub Copilot extension installed
-- [ ] GitHub Copilot App Modernization for Java extension installed
-- [ ] Extension Pack for Java installed
+- [ ] GitHub Copilot extension installed (`GitHub.copilot`)
+- [ ] GitHub Copilot Chat extension installed (`GitHub.copilot-chat`)
+- [ ] GitHub Copilot App Modernization for Java extension installed (`vscjava.migrate-java-to-azure`)
+- [ ] Extension Pack for Java installed (`vscjava.vscode-java-pack`)
 - [ ] All extensions show as "Enabled" (not disabled or errored)
 
 ### GitHub Account & Copilot
@@ -488,9 +540,6 @@ Complete this checklist **at least 1 day before** the hackathon:
 - [ ] Azure CLI installed and verified (`az --version`)
 - [ ] Signed in to Azure (`az login` completed)
 - [ ] Correct hackathon subscription set as active (`az account show`)
-- [ ] Azure Account extension installed in VS Code
-- [ ] Signed in to Azure in VS Code
-- [ ] Hackathon subscription selected in VS Code
 
 ### Test GitHub Copilot
 
@@ -678,6 +727,35 @@ az login
 # List and set subscription
 az account list --output table
 az account set --subscription "<subscription-id>"
+```
+
+### Issue: Maven command not found or "mvn is not recognized"
+
+**Solution (Windows):**
+
+```powershell
+# Verify Maven was extracted correctly
+Test-Path "$env:USERPROFILE\\tools\\apache-maven-3.9.9\\bin\\mvn.cmd"
+
+# Add to PATH for current session
+$env:Path += ";$env:USERPROFILE\\tools\\apache-maven-3.9.9\\bin"
+
+# Add permanently (restart terminal after)
+$mavenPath = "$env:USERPROFILE\\tools\\apache-maven-3.9.9\\bin"
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$mavenPath", "User")
+
+# Verify
+mvn -version
+```
+
+**Solution (macOS/Linux):**
+
+```bash
+# Add to your shell profile (~/.bashrc, ~/.zshrc, or ~/.bash_profile)
+export PATH="/usr/local/maven/bin:$PATH"
+
+# Reload profile
+source ~/.bashrc  # or ~/.zshrc
 ```
 
 ### Issue: Maven build fails with "dependencies not found"
