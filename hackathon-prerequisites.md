@@ -226,9 +226,6 @@ Install all required extensions at once using their extension IDs:
 2. **Run these commands** one by one:
 
 ```powershell
-# Install GitHub Copilot
-code --install-extension GitHub.copilot
-
 # Install GitHub Copilot Chat
 code --install-extension GitHub.copilot-chat
 
@@ -247,25 +244,7 @@ code --install-extension vscjava.vscode-java-pack
 
 If you prefer to install manually:
 
-### 3.1 GitHub Copilot (Required)
-
-**Extension ID:** `GitHub.copilot`
-
-**Installation:**
-
-1. Open VS Code
-2. Press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS)
-3. Search for "GitHub Copilot"
-4. Click **Install**
-
-**Requirements:**
-
-- Active GitHub Copilot subscription (Individual, Business, or Enterprise)
-- GitHub account signed in to VS Code
-
----
-
-### 3.2 GitHub Copilot Chat (Required)
+### 3.1 GitHub Copilot Chat (Required)
 
 **Extension ID:** `GitHub.copilot-chat`
 
@@ -277,9 +256,14 @@ If you prefer to install manually:
 
 **Note:** This enables the chat panel and inline chat features for Copilot
 
+**Requirements:**
+
+- Active GitHub Copilot subscription (Individual, Business, or Enterprise)
+- GitHub account signed in to VS Code
+
 ---
 
-### 3.3 GitHub Copilot App Modernization for Java (Required)
+### 3.2 GitHub Copilot App Modernization for Java (Required)
 
 **Extension ID:** `vscjava.migrate-java-to-azure`
 
@@ -293,7 +277,7 @@ If you prefer to install manually:
 
 ---
 
-### 3.4 Extension Pack for Java (Highly Recommended)
+### 3.3 Extension Pack for Java (Highly Recommended)
 
 **Extension ID:** `vscjava.vscode-java-pack`
 
@@ -520,7 +504,6 @@ Complete this checklist **at least 1 day before** the hackathon:
 
 ### VS Code Extensions
 
-- [ ] GitHub Copilot extension installed (`GitHub.copilot`)
 - [ ] GitHub Copilot Chat extension installed (`GitHub.copilot-chat`)
 - [ ] GitHub Copilot App Modernization for Java extension installed (`vscjava.migrate-java-to-azure`)
 - [ ] Extension Pack for Java installed (`vscjava.vscode-java-pack`)
@@ -709,7 +692,7 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 1. Ensure you have GitHub Copilot Enterprise (not Individual/Business)
 2. Update VS Code to the latest version
-3. Update GitHub Copilot extension to the latest version
+3. Update GitHub Copilot Chat extension to the latest version
 4. Reload VS Code and check the model list again
 5. Contact your GitHub admin if still unavailable
 

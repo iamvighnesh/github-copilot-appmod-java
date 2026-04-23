@@ -58,8 +58,7 @@ Follow these guides in order:
 ### Required Tools
 
 - **Visual Studio Code** with extensions:
-  - GitHub Copilot (with Enterprise license)
-  - GitHub Copilot Chat
+  - GitHub Copilot Chat (with Enterprise license)
   - GitHub Copilot App Modernization for Java
   - Extension Pack for Java
 - **Java 11+** (JDK 17 or 21 recommended)
